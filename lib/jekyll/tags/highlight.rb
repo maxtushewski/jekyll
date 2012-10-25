@@ -28,9 +28,11 @@ module Jekyll
             end
             tmp_options[key] = value
           end
+          @options = tmp_options.clone
           tmp_options = tmp_options.to_a.sort.collect { |opt| opt.join('=') }
           # additional options to pass to Albino
-          @options = { 'O' => tmp_options.join(',') }
+          # @options = { 'O' => tmp_options.join(',') }
+          @options['O'] = tmp_options.join(',')
         else
           @options = {}
         end

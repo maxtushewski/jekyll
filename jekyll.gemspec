@@ -4,8 +4,8 @@ Gem::Specification.new do |s|
   s.rubygems_version = '1.3.5'
 
   s.name              = 'jekyll'
-  s.version           = '0.11.2'
-  s.date              = '2011-12-27'
+  s.version           = '0.11.2.1'
+  s.date              = '2012-10-19'
   s.rubyforge_project = 'jekyll'
 
   s.summary     = "A simple, blog aware, static site generator."
@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('classifier', "~> 1.3")
   s.add_runtime_dependency('directory_watcher', "~> 1.1")
   s.add_runtime_dependency('maruku', "~> 0.5")
-  s.add_runtime_dependency('kramdown', "~> 0.13.4")
+  s.add_runtime_dependency('kramdown', ">= 0.13.4")
   s.add_runtime_dependency('pygments.rb', "~> 0.2.12")
 
   s.add_development_dependency('rake', "~> 0.9")
@@ -90,6 +90,7 @@ Gem::Specification.new do |s|
     lib/jekyll/static_file.rb
     lib/jekyll/tags/highlight.rb
     lib/jekyll/tags/include.rb
+    lib/jekyll/tags/post_url.rb
     test/helper.rb
     test/source/.htaccess
     test/source/_includes/sig.markdown

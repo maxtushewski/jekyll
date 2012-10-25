@@ -109,11 +109,12 @@ module Jekyll
           else
             # not using coderay
             Kramdown::Document.new(content, {
-              :auto_ids      => @config['kramdown']['auto_ids'],
-              :footnote_nr   => @config['kramdown']['footnote_nr'],
-              :entity_output => @config['kramdown']['entity_output'],
-              :toc_levels    => @config['kramdown']['toc_levels'],
-              :smart_quotes  => @config['kramdown']['smart_quotes']
+              :auto_ids       => @config['kramdown']['auto_ids'],
+              :footnote_nr    => @config['kramdown']['footnote_nr'],
+              :entity_output  => @config['kramdown']['entity_output'],
+              :toc_levels     => @config['kramdown']['toc_levels'],
+              :smart_quotes   => @config['kramdown']['smart_quotes'],
+              :enable_coderay => false
             }).to_html
           end
         when 'rdiscount'
