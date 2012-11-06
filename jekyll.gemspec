@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = '1.3.5'
 
   s.name              = 'jekyll'
-  s.version           = '0.11.2.1'
+  s.version           = '0.11.2.2'
   s.date              = '2012-10-19'
   s.rubyforge_project = 'jekyll'
 
@@ -62,6 +62,7 @@ Gem::Specification.new do |s|
     lib/jekyll.rb
     lib/jekyll/converter.rb
     lib/jekyll/converters/identity.rb
+    lib/jekyll/converters/kramdown_html_pygments.rb
     lib/jekyll/converters/markdown.rb
     lib/jekyll/converters/textile.rb
     lib/jekyll/convertible.rb

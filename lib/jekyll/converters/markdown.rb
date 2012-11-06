@@ -38,6 +38,7 @@ module Jekyll
         when 'kramdown'
           begin
             require 'kramdown'
+
           rescue LoadError
             STDERR.puts 'You are missing a library required for Markdown. Please run:'
             STDERR.puts '  $ [sudo] gem install kramdown'
@@ -107,8 +108,30 @@ module Jekyll
           markdown = Redcarpet::Markdown.new(@renderer.new(@redcarpet_extensions), @redcarpet_extensions)
           markdown.render(content)
         when 'kramdown'
+          puts "kramdown:use_pygments: #{@config['pygments']}"
+          puts "kramdown:use_coderay : #{@config['kramdown']['use_coderay']}"
           # Check for use of coderay
-          if @config['kramdown']['use_coderay']
+          if @config['pygments']
+            begin
+                require 'pygments'
+            rescue LoadError
+              STDERR.puts 'You are missing a library required for Markdown. Please run:'
+              STDERR.puts '  $ [sudo] gem install pygments'
+              raise FatalException.new("Missing dependency: pygments")
+            end            
+            require 'jekyll/converters/kramdown_html_pygments'
+            puts "kramdown:with pygments"
+
+            Kramdown::Document.new(content, {
+              :auto_ids      => @config['kramdown']['auto_ids'],
+              :footnote_nr   => @config['kramdown']['footnote_nr'],
+              :entity_output => @config['kramdown']['entity_output'],
+              :toc_levels    => @config['kramdown']['toc_levels'],
+              :smart_quotes  => @config['kramdown']['smart_quotes'],
+              :enable_coderay=> false
+            }).to_htmlc
+          elsif @config['kramdown']['use_coderay']
+            puts "kramdown:with coderay"
             Kramdown::Document.new(content, {
               :auto_ids      => @config['kramdown']['auto_ids'],
               :footnote_nr   => @config['kramdown']['footnote_nr'],
@@ -124,6 +147,7 @@ module Jekyll
               :coderay_css                => @config['kramdown']['coderay']['coderay_css']
             }).to_html
           else
+            puts "kramdown:default"            
             # not using coderay
             Kramdown::Document.new(content, {
               :auto_ids       => @config['kramdown']['auto_ids'],
@@ -133,6 +157,7 @@ module Jekyll
               :smart_quotes   => @config['kramdown']['smart_quotes'],
               :enable_coderay => false
             }).to_html
+            puts "kramdown:Kramdown::Document.to_html" 
           end
         when 'rdiscount'
           rd = RDiscount.new(content, *@rdiscount_extensions)
