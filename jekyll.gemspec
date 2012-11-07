@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('classifier', "~> 1.3")
   s.add_runtime_dependency('directory_watcher', "~> 1.1")
   s.add_runtime_dependency('maruku', "~> 0.5")
-  s.add_runtime_dependency('kramdown', ">= 0.13.4")
+  s.add_runtime_dependency('kramdown', ">= 0.14.0")
   s.add_runtime_dependency('pygments.rb', "~> 0.2.12")
 
   s.add_development_dependency('rake', "~> 0.9")
@@ -62,7 +62,7 @@ Gem::Specification.new do |s|
     lib/jekyll.rb
     lib/jekyll/converter.rb
     lib/jekyll/converters/identity.rb
-    lib/jekyll/converters/kramdown_html_pygments.rb
+    lib/jekyll/converters/kramdown_pygmentized_html.rb
     lib/jekyll/converters/markdown.rb
     lib/jekyll/converters/textile.rb
     lib/jekyll/convertible.rb
