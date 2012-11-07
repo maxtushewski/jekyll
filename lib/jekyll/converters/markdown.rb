@@ -107,10 +107,7 @@ module Jekyll
           markdown = Redcarpet::Markdown.new(@renderer.new(@redcarpet_extensions), @redcarpet_extensions)
           markdown.render(content)
         when 'kramdown'
-          puts "kramdown:use_pygments: #{@config['pygments']}"
-          puts "kramdown:use_coderay : #{@config['kramdown']['use_coderay']}"
-
-          # Check for use of coderay
+          # Check for use of pygments
           if @config['pygments']
             begin
                 require 'pygments'
@@ -120,9 +117,8 @@ module Jekyll
               raise FatalException.new("Missing dependency: pygments")
             end            
             require 'jekyll/converters/kramdown_pygmentized_html'
-            puts "kramdown:with_pygments"
 
-            result = Kramdown::Document.new(content, {
+            Kramdown::Document.new(content, {
               :auto_ids      => @config['kramdown']['auto_ids'],
               :footnote_nr   => @config['kramdown']['footnote_nr'],
               :entity_output => @config['kramdown']['entity_output'],
@@ -135,11 +131,8 @@ module Jekyll
               :coderay_bold_every         => @config['kramdown']['coderay']['coderay_bold_every'],
               :coderay_css                => @config['kramdown']['coderay']['coderay_css']              
             }).to_pygmentized_html
-            puts "kramdown:Kramdown::Document.to_pygmentized_html"             
-            result
           elsif @config['kramdown']['use_coderay']
-            puts "kramdown:with_coderay"
-            result = Kramdown::Document.new(content, {
+            Kramdown::Document.new(content, {
               :auto_ids      => @config['kramdown']['auto_ids'],
               :footnote_nr   => @config['kramdown']['footnote_nr'],
               :entity_output => @config['kramdown']['entity_output'],
@@ -153,12 +146,9 @@ module Jekyll
               :coderay_bold_every         => @config['kramdown']['coderay']['coderay_bold_every'],
               :coderay_css                => @config['kramdown']['coderay']['coderay_css']
             }).to_html
-            puts "kramdown:Kramdown::Document.to_html" 
-            result
           else
-            puts "kramdown:with_default"            
             # not using coderay
-            result = Kramdown::Document.new(content, {
+            Kramdown::Document.new(content, {
               :auto_ids       => @config['kramdown']['auto_ids'],
               :footnote_nr    => @config['kramdown']['footnote_nr'],
               :entity_output  => @config['kramdown']['entity_output'],
@@ -166,8 +156,6 @@ module Jekyll
               :smart_quotes   => @config['kramdown']['smart_quotes'],
               :enable_coderay => false
             }).to_html
-            puts "kramdown:Kramdown::Document.to_html" 
-            result
           end
         when 'rdiscount'
           rd = RDiscount.new(content, *@rdiscount_extensions)
