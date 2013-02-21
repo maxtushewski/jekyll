@@ -1,3 +1,5 @@
+Forked for RethinkDB website.
+
 h1. Jekyll
 
 By Tom Preston-Werner, Nick Quaranto, and many awesome contributors!
