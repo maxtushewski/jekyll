@@ -1,5 +1,4 @@
 module Jekyll
-
   class Page
     include Convertible
 
@@ -24,6 +23,18 @@ module Jekyll
       self.read_yaml(File.join(base, dir), name)
     end
 
+    # Read the YAML frontmatter.
+    #
+    # base - The String path to the dir containing the file.
+    # name - The String filename of the file.
+    #
+    # Returns nothing.
+    def read_yaml(base, name)
+      super(base, name)
+      self.data['layout'] = 'page' unless self.data.has_key?('layout')
+      self.data
+    end
+
     # The generated directory into which the page will be placed
     # upon generation. This is derived from the permalink or, if
     # permalink is absent, we be '/'
@@ -39,7 +50,14 @@ module Jekyll
     def source_dir
       return @dir
     end
-	
+
+    # The full relative path to the page. e.g. /blog/index.html
+    #
+    # Returns the String path.
+		def full_path
+			return File.join(@dir, self.url)
+		end
+		
     # The full path and filename of the post. Defined in the YAML of the post
     # body.
     #
@@ -107,13 +125,6 @@ module Jekyll
       do_layout(payload, layouts)
     end
 
-    # The full relative path to the page. e.g. /blog/index.html
-    #
-    # Returns the String path.
-	def full_path
-	  return File.join(@dir, self.url)
-	end
-	
     # Convert this Page's data to a Hash suitable for use by Liquid.
     #
     # Returns the Hash representation of this Page.
@@ -163,7 +174,5 @@ module Jekyll
     def index?
       basename == 'index'
     end
-
   end
-
 end
