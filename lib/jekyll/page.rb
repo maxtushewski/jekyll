@@ -130,7 +130,7 @@ module Jekyll
     # Returns the Hash representation of this Page.
     def to_liquid
       self.data.deep_merge({
-        "url"        => full_path,
+        "url"        => File.join(@dir, self.url),
         "content"    => self.content })
     end
 
