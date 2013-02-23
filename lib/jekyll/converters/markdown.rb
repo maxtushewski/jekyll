@@ -26,6 +26,11 @@ module Jekyll
                   code = code.sub(/<pre>/,'<pre><code class="' + lang + '">')
                   code = code.sub(/<\/pre>/,"</code></pre>")
                 end
+
+                def header(text, header_level)
+                  text_slug = text.gsub(/\W/, "_").downcase
+                  "<h#{header_level} id='#{text_slug}'>#{text}</h#{header_level}>"
+                end
               end
 
               @redcarpet_extensions = {}
@@ -130,7 +135,7 @@ module Jekyll
                 :footnote_nr   => @config['kramdown']['footnote_nr'],
                 :entity_output => @config['kramdown']['entity_output'],
                 :toc_levels    => @config['kramdown']['toc_levels'],
-                :smart_quotes  => @config['kramdown']['smart_quotes']
+                :smart_quotes  => @config['kramdown']['smart_quotes'],
               	:enable_coderay => false
               }).to_html
             end
